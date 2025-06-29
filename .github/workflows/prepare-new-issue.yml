@@ -2,10 +2,8 @@ name: 'Prepare new issue'
 on:
   issues:
     types: [opened]
-
 permissions:
   contents: read
-
 jobs:
   prepare-new-issue:
     runs-on: ubuntu-latest

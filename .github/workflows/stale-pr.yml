@@ -2,10 +2,8 @@ name: "Close stale pull requests"
 on:
   schedule:
     - cron: "12 3 * * *"  # arbitrary time not to DDOS GitHub
-
 permissions:
   contents: read
-
 jobs:
   stale:
     runs-on: ubuntu-latest
