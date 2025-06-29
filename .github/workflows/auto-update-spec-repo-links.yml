@@ -5,10 +5,15 @@ on:
     - cron: "46 * * * *"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   check-versions:
     runs-on: ubuntu-latest
     if: github.repository_owner == 'open-telemetry'
+    permissions:
+      pull-requests: read
     outputs:
       current-version: ${{ steps.check-versions.outputs.current-version }}
       latest-version: ${{ steps.check-versions.outputs.latest-version }}
