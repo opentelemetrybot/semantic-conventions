@@ -10,10 +10,16 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   generate-component-labels:
     runs-on: ubuntu-latest
     if: ${{ github.repository_owner == 'open-telemetry' }}
+    permissions:
+      contents: read
+      issues: write # required for gh label create
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
