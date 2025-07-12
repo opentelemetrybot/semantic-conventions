@@ -10,8 +10,14 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   generate-component-labels:
+    permissions:
+      contents: read
+      issues: write # required for creating repository labels
     runs-on: ubuntu-latest
     if: ${{ github.repository_owner == 'open-telemetry' }}
     steps:
