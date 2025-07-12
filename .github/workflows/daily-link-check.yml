@@ -8,13 +8,14 @@ on:
 
 permissions:
   contents: read
-  issues: write
 
 jobs:
   link-check:
     uses: ./.github/workflows/reusable-link-check.yml
 
   workflow-notification:
+    permissions:
+      issues: write # required for creating and updating issues
     needs:
       - link-check
     if: always()
