@@ -9,7 +9,7 @@ permissions:
 jobs:
   prepare-new-issue:
     permissions:
-      issues: write # required for assigning reviewers to issues
+      issues: write # required for labeling issues
     runs-on: ubuntu-latest
     if: ${{ github.repository_owner == 'open-telemetry' }}
     steps:
