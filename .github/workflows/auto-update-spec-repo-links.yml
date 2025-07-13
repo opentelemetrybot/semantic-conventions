@@ -30,7 +30,7 @@ jobs:
                                --jq .tagName)
 
           matches=$(gh pr list \
-                        --author opentelemetrybot \
+                        --author otelbot \
                         --state open \
                         --search "in:title \"Update spec repo links to $latest_version\"")
           if [ ! -z "$matches" ]
@@ -52,6 +52,12 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
+      - uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e # v2.0.6
+        id: otelbot-token
+        with:
+          app-id: ${{ vars.OTELBOT_APP_ID }}
+          private-key: ${{ secrets.OTELBOT_PRIVATE_KEY }}
+
       - name: Use CLA approved github bot
         run: .github/scripts/use-cla-approved-github-bot.sh
 
@@ -66,11 +72,11 @@ jobs:
         env:
           VERSION: ${{ needs.check-versions.outputs.latest-version }}
           # not using secrets.GITHUB_TOKEN since pull requests from that token do not run workflows
-          GH_TOKEN: ${{ secrets.OPENTELEMETRYBOT_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.otelbot-token.outputs.token }}
         run: |
           message="Update spec repo links to $VERSION"
           body="Update spec repo links to \`$VERSION\`."
-          branch="opentelemetrybot/update-spec-repo-links-to-$VERSION"
+          branch="otelbot/update-spec-repo-links-to-$VERSION"
 
           git checkout -b $branch
           git commit -a -m "$message"
