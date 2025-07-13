@@ -48,7 +48,6 @@ jobs:
   update-spec-repo-links:
     permissions:
       contents: write # required for pushing changes
-      pull-requests: write # required for creating PRs
     runs-on: ubuntu-latest
     if: |
       needs.check-versions.outputs.current-version != needs.check-versions.outputs.latest-version &&
